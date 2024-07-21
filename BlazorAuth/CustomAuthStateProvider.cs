@@ -10,7 +10,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
     private const string _storageKey = "JWT_KEY";
 
     private const string AuthenticationType = nameof(AuthenticationType);
-    private const string _token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0IiwiaWQiOiIxIiwiTmFtZSI6IlNwaWRlciBtYW4iLCJSb2xlIjoiYWRtaW4ifQ.45EjBq5WR8maxGB1Qw32JJfFpk-jVsARtfCgP0tweI4";
+    private const string _token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiU3BpZGVyIG1hbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIn0.j-_lRABjXDjXCPscSXObUalozr3xvo95NjRB5JAdEAs";
 
     public CustomAuthStateProvider(IBrowserStorage browserStorage)
     {
@@ -30,8 +30,8 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
                 LogInUser = new User
                 {
                     Id = ID,
-                    Name = authState.User.FindFirst("Name")!.Value,
-                    Role = authState.User.FindFirst("Role")!.Value,
+                    Name = authState.User.FindFirst(ClaimTypes.Name)!.Value,
+                    Role = authState.User.FindFirst(ClaimTypes.Role)!.Value,
                 };
                 return;
             }
@@ -74,12 +74,12 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
     private static AuthenticationState GetAuthenticationState(string Token)
     {
-        //var claims = ParseClaimsFromJWT(token);
-        //Claim[] claims = [
+        // var claims = ParseClaimsFromJWT(token);
+        // Claim[] claims = [
         //    new(ClaimTypes.NameIdentifier,user.Id.ToString()),
         //    new(ClaimTypes.Name,user.Name),
         //    new("Role",user.Role)
-        //];
+        // ];
 
         var claims = ParseClaimsFromJWT(Token);
 

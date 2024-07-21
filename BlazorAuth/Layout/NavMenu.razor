@@ -1,5 +1,4 @@
-﻿@inject CustomAuthStateProvider AuthStateProvider
-<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorAuth</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -26,21 +25,7 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-           <AuthorizeView>
-                <Authorized>
-                    <label class="text-white">
-                        Hello @context.User.FindFirst("Name")!.Value
-                    </label>
-                    <button type="button" class="btn btn-danger" @onclick="LogoutAsync">
-                        Logout
-                    </button>
-                </Authorized>
-                <NotAuthorized>
-                    <button type="button" class="btn btn-primary" @onclick="LoginAsync">
-                        Login
-                    </button>
-                </NotAuthorized>
-            </AuthorizeView>
+           
         </div>
     </nav>
 </div>
@@ -53,14 +38,5 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-    }
-
-    private async Task LoginAsync()
-    {
-        await AuthStateProvider.LoginAsync();
-    }
-    private async Task LogoutAsync()
-    {
-        await AuthStateProvider.LogoutAsync();
-    }
+    }    
 }

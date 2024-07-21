@@ -7,9 +7,9 @@
 <AuthorizeView>
     <Authorized>
         <label>
-            User Name @context.User.FindFirst("Name")!.Value
+            Name : @context.User.FindFirst(ClaimTypes.Name)!.Value
             <br />
-            Role: @context.User.FindFirst("Role")!.Value
+            Role : @context.User.FindFirst(ClaimTypes.Role)!.Value
         </label>
     </Authorized>
     <NotAuthorized>

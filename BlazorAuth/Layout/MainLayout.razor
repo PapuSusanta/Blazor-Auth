@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject CustomAuthStateProvider AuthStateProvider
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,7 +7,21 @@
 
     <main>
         <div class="top-row px-4">
-            
+            <AuthorizeView>
+                <Authorized>
+                    <label>
+                        Hello @context.User.FindFirst(ClaimTypes.Name)!.Value
+                    </label>
+                    <button type="button" class="btn btn-danger" @onclick="LogoutAsync">
+                        Logout
+                    </button>
+                </Authorized>
+                <NotAuthorized>
+                    <button type="button" class="btn btn-primary" @onclick="LoginAsync">
+                        Login
+                    </button>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -14,3 +29,14 @@
         </article>
     </main>
 </div>
+
+@code{
+    private async Task LoginAsync()
+    {
+        await AuthStateProvider.LoginAsync();
+    }
+    private async Task LogoutAsync()
+    {
+        await AuthStateProvider.LogoutAsync();
+    }
+}
